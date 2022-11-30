@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+table {
+	margin: 50x auto;
+	width:1000px;
+	font-family: arial, sans-serif;
+	border-collapse:callapse;
+	width:100%;
+	width:1200px;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+}
+	
+tr:nth-child(even) {
+	background-color: #dddddd;
+}
+
+</style>
+</head>
+<body>
+	<h2>안녕하세요 여기는 DEPT 화면 입니다.</h2>
+	<table>
+		<tr>
+			<th>부서번호</th>
+			<th>사원이름</th>
+			<th>부서위치</th>
+		</tr>
+		<tbody id="data">
+		</tbody>	
+	</table>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.js"
+	integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+	crossorigin="anonymous"></script>
+<script type="text/javascript">
+	callApi();
+	function callApi() {
+		$.ajax({
+			url : '/api/v1/dept',
+			type : 'GET',
+			dataType : 'json',
+			success : function(response) {
+				console.log(response);
+				var html = '';
+				for (var i = 0; i < response.length; i++) {
+					html += '<tr><td>' + response[i].deptno + '</td><td>'
+							+ response[i].dname + '</td><td>' + response[i].loc
+							+ '</td><tr>';
+				}
+				$('#data').append(html);
+				
+			}
+		});
+	}
+</script>		
+</html>
